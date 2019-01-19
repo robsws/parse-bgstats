@@ -35,7 +35,6 @@ for play in bgstats['plays']:
     player_scores = {lookup('player','name',score['playerRefId']):{'winner':1 if score['winner'] else 0,'score':score['score']} for score in play['playerScores']}
     sorted_players = sorted(player_scores.items(), key=lambda kv: int(kv[1]['score']) if kv[1]['score'] != None and kv[1]['score'] != '' else kv[1]['winner'], reverse=True)
     sorted_players = sorted(sorted_players, key=lambda kv: int(kv[1]['winner']), reverse=True)
-    print(sorted_players)
     if args.mode == 'wins':
         leaderboard[sorted_players[0][0]] += 1
     elif args.mode == 'medals':
