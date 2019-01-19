@@ -57,12 +57,10 @@ def melt_medals(medals):
 
 if args.mode == 'medals':
     sorted_leaderboard = sorted(leaderboard.items(), key=lambda kv: melt_medals(kv[1]), reverse=True)
+    medal_board = [(x[0], x[1]['gold'], x[1]['silver'], x[1]['bronze'], melt_medals(x[1])) for x in sorted_leaderboard]
+    table_data = [list(t) for t in medal_board]
+    print(tabulate(table_data, headers=['Name', 'Gold', 'Silver', 'Bronze', 'Score']))
 else:
     sorted_leaderboard = sorted(leaderboard.items(), key=lambda kv: kv[1], reverse=True)
-
-# Print the leaderboard
-table_data = [list(t) for t in sorted_leaderboard]
-print(tabulate(table_data, headers=['Name', 'Score']))
-
-outfile = open('out.txt', 'w')
-outfile.write(json.dumps(bgstats, indent=2))
+    table_data = [list(t) for t in sorted_leaderboard]
+    print(tabulate(table_data, headers=['Name', 'Score']))
